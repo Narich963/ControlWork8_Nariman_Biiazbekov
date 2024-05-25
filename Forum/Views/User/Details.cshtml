@@ -12,7 +12,8 @@
             <p class="card-text">Email: @Model.Email</p>
         </div>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">Кол-во сообщений: </li>
+            <li class="list-group-item">Кол-во комментариев: @Model.Comments.Count</li>
+            <li class="list-group-item">Кол-во сообщений: @Model.Posts.Count</li>
         </ul>
         <div class="card-body">
             @if (User.Identity.Name == Model.UserName)

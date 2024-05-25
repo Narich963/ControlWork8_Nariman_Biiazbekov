@@ -29,7 +29,11 @@
 
     <div id="targetDiv" class="border border-black border-2">
         <textarea type="text" id="commentBody" class="publisher-input" placeholder="Введите сообщение"></textarea>
-        <button onclick="sendComment('@Model.User.UserName', @Model.Id)" id="submit" type="submit">Отправить</button>
+        <button onclick="sendComment('@Model.User.UserName', '@Model.Id')" id="submit" type="submit">Отправить</button>
+    </div>
+
+    <div id="pagination">
+
     </div>
 
 </div>
@@ -41,6 +45,7 @@
 </script>
 
 <script>
+    let currentPage = 1;
     $('#scroll').click(function () {
         $('html, body').animate({
             scrollTop: $('#targetDiv').offset().top
@@ -60,10 +65,12 @@
             }
         });
     }
-    function loadComments() {
+    function loadComments(pageNumber = 1) {
+        console.log('123');
         $.ajax({
             url: '@Url.Action("GetComments", "Comment")',
             type: 'GET',
+            data: {'postId': @Model.Id, 'pageNumber': currentPage, },
             success: function (data) {
                 $('#comments').html(data);
                 console.log('comments uploaded');
@@ -73,8 +80,29 @@
             }
         });
     }
+    function pagination(pageNumber = 1) {
+        $.ajax({
+            url: '@Url.Action("GetPagination", "Comment")',
+            data: {'postId': @Model.Id, 'pageNumber': pageNumber, },
+            type: 'GET',
+            success: function (data) {
+                $('#pagination').html(data);
+                console.log('pagination loaded');
+            },
+            error: function () {
+                console.log('pagination falied');
+            }
+        });
+    }
+
+    $(document).on('click', '.page-link', function () {
+        event.preventDefault();
+        currentPage = $(this).data('page');
+        pagination(currentPage);
+    })
 
     loadComments();
+    pagination(currentPage);
 
     setInterval(loadComments, 1000);
 
