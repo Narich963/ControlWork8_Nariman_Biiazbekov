@@ -1,0 +1,24 @@
+﻿@model User
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div class="container">
+    <div class="card" style="width: 30rem;">
+        <img src="@Model.Avatar" class="card-img-top" style="height: 500px" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">@Model.UserName</h5>
+            <p class="card-text">Email: @Model.Email</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Кол-во сообщений: </li>
+        </ul>
+        <div class="card-body">
+            @if (User.Identity.Name == Model.UserName)
+            {
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="card-link">Edit profile</a>
+            }
+        </div>
+    </div>
+</div>
