@@ -1,0 +1,14 @@
+﻿@model List<Comment>
+
+
+@foreach (var cm in Model)
+{
+    <div class="media media-chat border border-2 border-black">
+        <img class="avatar" src="@cm.User.Avatar" alt="...">
+        <div class="media-body">
+            <p>@cm.Body</p>
+            <p class="meta"><a asp-action="Details" asp-controller="User" asp-route-name="@cm.User.UserName">@cm.User.UserName</a></p>
+            <p class="meta"><time datetime="2018">@cm.Created.ToLongTimeString()</time></p>
+        </div>
+    </div>
+}
