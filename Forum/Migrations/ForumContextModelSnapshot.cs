@@ -48,7 +48,7 @@ namespace Forum.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Posts", (string)null);
                 });
 
             modelBuilder.Entity("Forum.Models.User", b =>
